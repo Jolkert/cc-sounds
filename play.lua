@@ -32,11 +32,18 @@ local function execute(file_name, speaker)
     file.close()
 end
 
+local function print_red(text)
+    local old_color = term.getTextColor()
+    term.setTextColor(colors.red)
+    print(text)
+    term.setTextColor(old_color)
+end
+
 local speaker = peripheral.find("speaker")
 if not speaker then
-    term.blit("could not find speaker peripheral!", colors.red, term.getBackgroundColor())
+    print_red("could not find speaker peripheral!", colors.red, term.getBackgroundColor())
 elseif not arg[1] then
-    term.blit("A file must be specified!", colors.red, term.getBackgroundColor())
+    print_red("A file must be specified!", colors.red, term.getBackgroundColor())
 else
     execute(arg[1], speaker)
 end
