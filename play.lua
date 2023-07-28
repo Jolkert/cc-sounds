@@ -18,7 +18,7 @@ end
 local function execute(file_name, speaker)
     local BUFFER_SIZE = 128 * 1024
 
-    local file = fs.open(file_name "rb")
+    local file = fs.open(file_name, "rb")
 
     local buffer = getNextChunk(file, BUFFER_SIZE)
     while buffer do
