@@ -1,5 +1,5 @@
 local function getNextChunk(handle, size)
-    local sample = handle.read()
+    local sample = handle.read() - 128
     if not sample then
         return nil
     end
@@ -9,7 +9,7 @@ local function getNextChunk(handle, size)
     while sample and i <= size do
         chunk[i] = sample
         i = i + 1
-        sample = handle.read()
+        sample = handle.read() - 128
     end
 
     return chunk
