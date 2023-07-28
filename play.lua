@@ -1,5 +1,9 @@
-local function getNextChunk(handle, size)
-    local sample = handle.read() - 128
+function Number:fix_range()
+    
+end
+
+local function get_next_chunk(handle, size)
+    local sample = handle.read()
     if not sample then
         return nil
     end
@@ -7,9 +11,9 @@ local function getNextChunk(handle, size)
     local i = 1
     local chunk = {}
     while sample and i <= size do
-        chunk[i] = sample
+        chunk[i] = sample - 128
         i = i + 1
-        sample = handle.read() - 128
+        sample = handle.read()
     end
 
     return chunk
@@ -20,13 +24,13 @@ local function execute(file_name, speaker)
 
     local file = fs.open(file_name, "rb")
 
-    local buffer = getNextChunk(file, BUFFER_SIZE)
+    local buffer = get_next_chunk(file, BUFFER_SIZE)
     while buffer do
         while not speaker.playAudio(buffer) do
             os.pullEvent("speaker_audio_empty")
         end
 
-        buffer = getNextChunk(file, BUFFER_SIZE)
+        buffer = get_next_chunk(file, BUFFER_SIZE)
     end
 
     file.close()
