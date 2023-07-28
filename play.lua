@@ -1,7 +1,3 @@
-function Number:fix_range()
-    
-end
-
 local function get_next_chunk(handle, size)
     local sample = handle.read()
     if not sample then
